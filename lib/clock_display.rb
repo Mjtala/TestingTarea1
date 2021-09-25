@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'time'
-# clase clock
+# clase clock de la clase
 class Clock
   attr_accessor :hour, :minutes, :seconds
 
