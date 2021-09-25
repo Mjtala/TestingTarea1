@@ -6,3 +6,4 @@ model = Board.new()
 view = BoardView.new()
 controller = BoardController.new(model, view)
 controller.printBoard
+model.define_adyacent_bombs

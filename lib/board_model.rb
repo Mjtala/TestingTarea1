@@ -32,8 +32,32 @@ class Board
         return @board
     end
 
-    # def define_adyacent_bombs
+    def define_adyacent_bombs
+        @board.length.times do |i|
+            unless @board[i][:value] == @bomb
+                @board[i][:value] = get_total_adyacent_bombs(i)
+            end
+        end 
+    end
+    
+    def get_total_adyacent_bombs(position)
+        row, col = get_coordinates(position)
+        total_bombs = 0
+        if (row == 1) then
+        
+        elsif (col == 1) then
+        elsif (row == @width) then
+        elsif (col ==  @width) then
+        else
+            @board[i][:value]
+        end
+    end
 
-    # end
+    def get_coordinates(i)
+        row = (i/@width) +1
+        col = (i % @width) +1
+        return [row,col]
+    end
+
 end
 
