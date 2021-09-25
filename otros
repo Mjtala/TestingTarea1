@@ -1,0 +1,15 @@
+Para correr los tests escribir siguiente comando en consola:
+    - ruby lib/clock_display.rb //Esto para compilar el código
+    - ruby test/clock_display_test.rb //Esto para correr los tests
+    - Para correr todos los test usar rake test
+
+Rakefile es para automatizar el código para que se corran todos los tests
+Cada vez que agreguemos una dependecia correr 
+    - bundler install
+
+Correr rubocop:
+    - rake lint
+    - rubocop -A para corregir los errores corregibles
+
+Para correr código ruby
+    - ruby nombrearchivo.rb
