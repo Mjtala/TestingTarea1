@@ -1,23 +1,10 @@
-# frozen_string_literal: true
+class BoardController
+    def initialize(boardModel, boardView)
+        @model = boardModel
+        @view = boardView
+    end
 
-require 'time'
-# clase clock
-class Clock
-  attr_accessor :hour, :minutes, :seconds
-
-  def initialize(hour, minutes, seconds)
-    @hour = hour
-    @minutes = minutes
-    @seconds = seconds
-  end
-
-  def print_string
-    @total_seconds = @hour * 3600 + @minutes * 60 + @seconds
-    @time = Time.at(@total_seconds).utc.strftime('%H:%M:%S')
-    @time
-  end
-
-  def increment
-    @seconds += 1
-  end
+    def printBoard
+        @view.printBoard(@model)
+    end
 end
