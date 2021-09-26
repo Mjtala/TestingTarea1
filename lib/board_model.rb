@@ -1,7 +1,7 @@
 require 'matrix'
 
 class Board
-    attr_accessor :board, :width
+    attr_accessor :board, :width, :game_over
 
     def initialize(size = 3, amount_mines = 3)
         @board = []
@@ -10,6 +10,7 @@ class Board
         @exploded= "💥"
         @width = size.to_i
         @amount_mines = amount_mines.to_i
+        @game_over = false
         @bordering = [
             [-1,-1], #upper-left
             [-1,0], #top
