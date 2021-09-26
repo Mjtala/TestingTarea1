@@ -1,23 +1,26 @@
-# frozen_string_literal: true
+class BoardController
+    def initialize(boardModel, boardView)
+        @model = boardModel
+        @view = boardView
+    end
 
-require 'time'
-# clase clock
-class Clock
-  attr_accessor :hour, :minutes, :seconds
+    def printBoard
+        @view.printBoard(@model)
+    end
 
-  def initialize(hour, minutes, seconds)
-    @hour = hour
-    @minutes = minutes
-    @seconds = seconds
-  end
+    def requestInput
+        @view.requestPlay()
+        key = $stdin.gets.to_i
+        ## aqui se obtiene la posicion que elige el jugador
 
-  def print_string
-    @total_seconds = @hour * 3600 + @minutes * 60 + @seconds
-    @time = Time.at(@total_seconds).utc.strftime('%H:%M:%S')
-    @time
-  end
+    end
 
-  def increment
-    @seconds += 1
-  end
+    def select(xo,yo)
+        # aqui tienen que hacer todo el flujo del juego // miren el juego del profe
+        if @model.game_over then
+            @view.game_over
+        else
+            requestInput()
+        end
+    end
 end
