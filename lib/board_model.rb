@@ -25,6 +25,9 @@ class Board
         define_adyacent_bombs()
     end
 
+    ## creamos el board, primero ponemos todas las bombas y después agregamos el resto de los elementos
+    ## todos parten con revealed falso ya que el jugado no debe ver qué es lo que hay 
+    ## usamos board shuffle para mezclar el tablero y que sean random las posiciones de las bombas
     def create_board()
         amount_total_squares = @width * @width
         for i in 1..amount_total_squares.to_i
@@ -44,6 +47,9 @@ class Board
         return @board
     end
 
+    # buscamos todas las bombas adyacentes a un cuadrado y las contamos para poder poner 
+    # el valor a los cuadrados. En el juego si apretas un cuadrado y sale 1 es porque tiene una
+    # bomba adyacente. Eso es lo que hacemos acá. Le agremos hece valor
     def define_adyacent_bombs
         @board.length.times do |i|
             unless @board[i][:value] == @bomb
@@ -51,7 +57,11 @@ class Board
             end
         end 
     end
-    
+
+    # acá calculamos las bombas adyacentes revisando los 8 cuadrados con los que colinda
+    # como trabajamos con una lista tenemos que estas constantemente cambiando los valores de
+    # lista a matriz y de matriz a lista. Esto es lo que hacemos en la línea **
+    # get coordinates hace lo contrario a la línea **, pasa de lista al valor coordenadas en la matriz
     def get_total_adyacent_bombs(position)
         row, col = get_coordinates(position)
         total_bombs = 0
@@ -62,7 +72,7 @@ class Board
                 # estamos afuera del tablero por lo que no tenemos que calcular nada
                 next
             end
-            # pasamos los valores de matríz a lista, neighbour[0] = x
+            # **  pasamos los valores de matríz a lista, neighbour[0] = x
             position_in_board = (neighbour[0]-1) * @width + (neighbour[1] - 1)
             if @board[position_in_board][:value] == @bomb
                 total_bombs += 1
@@ -71,7 +81,7 @@ class Board
         return total_bombs
     end
 
-    # PASAMOS A MATRIZ EL VALOR DE LA LISTA
+    # Pasamos de lista a matriz
     def get_coordinates(i)
         row = (i/@width) +1
         col = (i % @width) +1

@@ -15,7 +15,7 @@ class BoardController
 
     end
 
-    def select(xo,yo)
+    def select(x,y)
         # aqui tienen que hacer todo el flujo del juego // miren el juego del profe
         if @model.game_over then
             @view.game_over
