@@ -7,7 +7,7 @@ class BoardView
     def printBoard(boardModel)
         print " "
         for i in  1..boardModel.width
-            print " #{i}"
+            print "     #{i}"
         end
         puts ""
         position = 0
@@ -15,9 +15,9 @@ class BoardView
             print i
             for j in 1..boardModel.width
                 if (boardModel.board[position][:revealed?]) then
-                    print boardModel.board[position][:value]
+                    print ("    #{boardModel.board[position][:value]}")
                 else
-                    print " ⬜"
+                    print "    ⬜"
                 end
                 position += 1
             end
@@ -32,12 +32,16 @@ class BoardView
     end
     def congratulate()
         puts "Felicitaciones has ganado!"
-      end
+    end
     def gameOver()
         puts "Explotó una bomba! Haz perdido :("
     end
 
     def requestPlay()
         puts "Seleccióna tu jugada"
+    end
+
+    def sendErrorMessage()
+        puts "Has introducido una jugada invalida"
     end
 end

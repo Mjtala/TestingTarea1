@@ -5,6 +5,7 @@ class Board
 
     def initialize(size = 3, amount_mines = 3)
         @board = []
+        @checked = []
         @bomb = "💣"
         @empty = "▪︎"
         @exploded= "💥"
@@ -19,6 +20,12 @@ class Board
             [1,1], #lower-right
             [1,0], #bottom
             [1,-1], #lower-left
+            [0,-1] #left
+        ]
+        @bordering_cross = [
+            [-1,0], #top
+            [0,1], #right
+            [1,0], #bottom
             [0,-1] #left
         ]
         create_board()
@@ -50,12 +57,12 @@ class Board
     # buscamos todas las bombas adyacentes a un cuadrado y las contamos para poder poner 
     # el valor a los cuadrados. En el juego si apretas un cuadrado y sale 1 es porque tiene una
     # bomba adyacente. Eso es lo que hacemos acá. Le agremos hece valor
-    def define_adyacent_bombs
+    def define_adyacent_bombs()
         @board.length.times do |i|
             unless @board[i][:value] == @bomb
                 @board[i][:value] = get_total_adyacent_bombs(i)
             end
-        end 
+        end
     end
 
     # acá calculamos las bombas adyacentes revisando los 8 cuadrados con los que colinda
@@ -66,14 +73,15 @@ class Board
         row, col = get_coordinates(position)
         total_bombs = 0
 
-        for values, index in @bordering.each_with_index
+        for values in @bordering.each_with_index
             neighbour = [row + values[0], col + values[1]]
             if neighbour.include?(0) || neighbour.include?(@width+1)
                 # estamos afuera del tablero por lo que no tenemos que calcular nada
                 next
             end
             # **  pasamos los valores de matríz a lista, neighbour[0] = x
-            position_in_board = (neighbour[0]-1) * @width + (neighbour[1] - 1)
+            position_in_board = get_position_in_board(neighbour[0], neighbour[1])
+            #position_in_board = (neighbour[0]-1) * @width + (neighbour[1] - 1)
             if @board[position_in_board][:value] == @bomb
                 total_bombs += 1
             end
@@ -88,5 +96,48 @@ class Board
         return [row,col]
     end
 
+    def get_position_in_board(x, y)
+        return (x - 1) * @width + (y - 1)
+    end
+
+    def reveal(x, y)
+        i = get_position_in_board(x, y)
+        @board[i][:revealed?] = true
+        if @board[i][:value] == @bomb
+            @game_over = true
+            return
+        elsif @board[i][:value] == 0
+            @checked.push([x,y])
+            for values in @bordering.each_with_index
+                neighbour = [x + values[0], y + values[1]]
+                p = get_position_in_board(neighbour[0], neighbour[1])
+                if neighbour[0] > @width || neighbour[0] < 0 || neighbour[1] > @width || neighbour[1] < 0 || @board[p][:value] == @bomb || @checked.include?([neighbour[0],neighbour[1]])
+                    @checked.push([neighbour[0], neighbour[1]])
+                    # estamos afuera del tablero por lo que no tenemos que calcular nada
+                    next
+                elsif @board[p][:value] != 0
+                    @board[p][:revealed?] = true
+                    @checked.push([neighbour[0], neighbour[1]])
+                else
+                    @checked.push([neighbour[0], neighbour[1]])
+                    reveal(neighbour[0], neighbour[1])
+                end
+            end
+        end
+    end
+
+    def win()
+        count_revealed = 0
+        for element in @board
+            if element[:revealed?]
+                count_revealed += 1
+            end
+        end
+        if @board.length - count_revealed == @amount_mines
+            return true
+        else
+            return false
+        end
+    end
 end
 
