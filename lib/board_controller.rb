@@ -8,19 +8,32 @@ class BoardController
         @view.printBoard(@model)
     end
 
-    def requestInput
+    def requestInput()
         @view.requestPlay()
-        key = $stdin.gets.to_i
+        key = $stdin.gets
+        x = key.split(",")[0].to_i
+        y = key.split(",")[1].to_i
+        response = [x, y]
+        if x > @model.width || x <= 0 || y > @model.width || y <= 0 || response.length <= 1 || response.include?("\\n") || response.include?("0")
+            @view.sendErrorMessage()
+            return requestInput()
+        end
+        return response
         ## aqui se obtiene la posicion que elige el jugador
-
     end
 
-    def select(x,y)
+    def play
+        @view.printBoard(@model)
         # aqui tienen que hacer todo el flujo del juego // miren el juego del profe
         if @model.game_over then
-            @view.game_over
+            @view.gameOver()
+            return
+        elsif @model.win()
+            @view.congratulate()      
         else
-            requestInput()
+            input = requestInput()
+            @model.reveal(input[0], input[1])
+            play()
         end
     end
 end
