@@ -90,9 +90,9 @@ class Board
     end
 
     # Pasamos de lista a matriz
-    def get_coordinates(i)
-        row = (i/@width) +1
-        col = (i % @width) +1
+    def get_coordinates(pos)
+        row = (pos/@width) +1
+        col = (pos % @width) +1
         return [row,col]
     end
 
