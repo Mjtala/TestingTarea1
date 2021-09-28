@@ -102,6 +102,7 @@ class Board
 
     def reveal(x, y)
         i = get_position_in_board(x, y)
+        puts("#{[x, y]} revealed value in method with index #{i} value #{@board[i][:value]} \n")
         @board[i][:revealed?] = true
         if @board[i][:value] == @bomb
             @game_over = true
@@ -111,12 +112,13 @@ class Board
             for values in @bordering.each_with_index
                 neighbour = [x + values[0], y + values[1]]
                 p = get_position_in_board(neighbour[0], neighbour[1])
-                if neighbour[0] > @width || neighbour[0] < 0 || neighbour[1] > @width || neighbour[1] < 0 || @board[p][:value] == @bomb || @checked.include?([neighbour[0],neighbour[1]])
+                if neighbour[0] > @width || neighbour[0] < 0 || neighbour[1] > @width || neighbour[1] < 0 || @board[p][:value] == @bomb || @checked.include?([neighbour[0],neighbour[1]]) || neighbour.include?(0) || neighbour.include?(@width+1)
                     @checked.push([neighbour[0], neighbour[1]])
                     # estamos afuera del tablero por lo que no tenemos que calcular nada
                     next
                 elsif @board[p][:value] != 0
                     @board[p][:revealed?] = true
+                    puts("#{neighbour} revealed value != 0 with index #{p} value #{@board[p][:value]} \n")
                     @checked.push([neighbour[0], neighbour[1]])
                 else
                     @checked.push([neighbour[0], neighbour[1]])

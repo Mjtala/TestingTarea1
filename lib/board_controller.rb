@@ -14,9 +14,9 @@ class BoardController
         x = key.split(",")[0].to_i
         y = key.split(",")[1].to_i
         response = [x, y]
-        if x > @model.width || x < 0 || y > @model.width || y < 0 || response.length <= 1
+        if x > @model.width || x <= 0 || y > @model.width || y <= 0 || response.length <= 1 || response.include?("\\n") || response.include?("0")
             @view.sendErrorMessage()
-            requestInput()
+            return requestInput()
         end
         return response
         ## aqui se obtiene la posicion que elige el jugador
