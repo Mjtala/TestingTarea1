@@ -3,11 +3,11 @@
 # Clase de la vista del tablero
 class BoardView
   def print_board(board_model)
-    print " "
+    print ' '
     (1..board_model.width).each do |i|
       print "    #{i}"
     end
-    puts ""
+    puts ''
     position = 0
     (1..board_model.width).each do |i|
       print i
@@ -15,13 +15,13 @@ class BoardView
         if board_model.board[position][:revealed?]
           print("    #{board_model.board[position][:value]}")
         else
-          print "    ⬜"
+          print '    ⬜'
         end
         position += 1
       end
-      puts ""
+      puts ''
     end
-    STDOUT.flush
+    $stdout.flush
   end
 
   def start_game
@@ -32,18 +32,18 @@ class BoardView
   end
 
   def congratulate
-    puts "Felicitaciones has ganado!"
+    puts 'Felicitaciones has ganado!'
   end
 
   def game_over
-    puts "Explotó una bomba! Haz perdido :("
+    puts 'Explotó una bomba! Haz perdido :('
   end
 
   def request_play
-    puts "Seleccióna tu jugada"
+    puts 'Seleccióna tu jugada'
   end
 
   def send_error_message
-    puts "Has introducido una jugada invalida"
+    puts 'Has introducido una jugada invalida'
   end
 end
