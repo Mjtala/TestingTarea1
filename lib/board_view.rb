@@ -22,7 +22,6 @@ class BoardView
       puts ""
     end
     STDOUT.flush
-    #Commit prueba
   end
 
   def start_game
