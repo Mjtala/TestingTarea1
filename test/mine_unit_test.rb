@@ -23,8 +23,19 @@ class MineUnitTest < Test::Unit::TestCase
         assert_equal(expected, output)
     end
 
-    def test_continue_playing
-
+    def test_reveal_boxes_move
+        new_board = Board.new(3, 1)
+        board = new_board.board
+        (0..board.length-1).each do |box_index|
+            if board[box_index][:value] != '💣' 
+                if (board[box_index][:value]).zero? 
+                    row, col = new_board.get_coordinates(box_index)
+                    new_board.reveal(row, col)
+                    break
+                end
+            end
+        end
+        assert_false(new_board.game_over())
     end
 
     
@@ -33,7 +44,6 @@ class MineUnitTest < Test::Unit::TestCase
         board = new_board.board
         (0..board.length-1).each do |box_index|
             if board[box_index][:value] == '💣'
-                board[box_index][:revealed?] = true
                 row, col = new_board.get_coordinates(box_index)
                 new_board.reveal(row, col)
                 break
