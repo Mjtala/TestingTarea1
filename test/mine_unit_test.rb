@@ -24,8 +24,17 @@ class MineUnitTest < Test::Unit::TestCase
    end
 
   def test_win
-    @board = Board.new()
-    # revisar como verificar posicion de bombas
+    new_board = Board.new()
+    board = new_board.board
+    (0..board.length-1).each do |box_index|
+      if board[box_index-1][:value] == '💣'
+        next
+      else
+        # Si no es bomba lo revelamos
+        board[box_index][:revealed?] = true
+      end
+    end
+    assert_true(new_board.win())
   end
 
 end
