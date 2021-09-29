@@ -9,14 +9,18 @@ class Board
   def initialize(size = 3, amount_mines = 3)
     @board = []
     @checked = []
-    @bomb = '💣'
-    @empty = '▪︎'
-    @exploded = '💥'
     @width = size.to_i
     @amount_mines = amount_mines.to_i
     @game_over = false
     @bordering = define_bordering
     @bordering_cross = define_bordering_cross
+    initialize_objects
+  end
+
+  def initialize_objects
+    @bomb = '💣'
+    @empty = '▪︎'
+    @exploded = '💥'
     create_board
     define_adyacent_bombs
   end

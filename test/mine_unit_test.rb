@@ -5,6 +5,7 @@ require_relative '../lib/board_controller'
 require_relative '../lib/board_model'
 require 'test/unit'
 
+# Testeo de minesweeper
 class MineUnitTest < Test::Unit::TestCase
   def test_define_bordering
     @board = Board.new
