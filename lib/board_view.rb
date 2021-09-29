@@ -21,6 +21,7 @@ class BoardView
       end
       puts ''
     end
+    STDOUT.flush
   end
 
   def start_game
