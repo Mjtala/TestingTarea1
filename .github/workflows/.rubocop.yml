@@ -9,29 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ["2.6", "2.7", "3.0"]
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby-version}}
-          bundler-cache: true
+          ruby-version: 3.0
+        run: bundle install
       - name: Run RuboCop
-        run: bundle exec rubocop --parallel
-
-        Metrics/ClassLength:
-  Max: 196
-
-# Offense count: 228
-# Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
-Metrics/MethodLength:
-  Max: 34
-
-# Offense count: 5
-# Configuration parameters: CountComments, CountAsOne.
-Metrics/ModuleLength:
-  Max: 129
+        run: bundle exec rubocop
