@@ -21,7 +21,6 @@ class BoardController
       @view.send_error_message
       return request_input
     end
-    # print(x, y)
     response
   end
 

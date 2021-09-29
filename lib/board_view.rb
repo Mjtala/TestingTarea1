@@ -3,7 +3,10 @@
 # Clase de la vista del tablero
 class BoardView
   def print_board(board_model)
-    (1..board_model.width).each { |i| print "  #{i}  " }
+    print ' '
+    (1..board_model.width).each do |i|
+      print "    #{i}"
+    end
     puts ''
     print_board_matrix(board_model)
     $stdout.flush
@@ -14,7 +17,10 @@ class BoardView
     (1..board_model.width).each do |i|
       print i
       (1..board_model.width).each do |_j|
-        print("  #{board_model.board[position][:value]}  ") if board_model.board[position][:revealed?]
+        if board_model.board[position][:revealed?]
+          print("    #{board_model.board[position][:value]}")
+        else print '    ⬜'
+        end
         position += 1
       end
       puts ''

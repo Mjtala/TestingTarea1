@@ -52,17 +52,12 @@ class Board
   ## usamos board shuffle para mezclar el tablero y que sean random las posiciones de las bombas
   def create_board
     (1..(@width * @width).to_i).each do |i|
-      if i <= @amount_mines
-        @board.push({
-                      value: @bomb,
-                      revealed?: false
-                    })
-      else
-        @board.push({
-                      value: @empty,
-                      revealed?: false
-                    })
-      end
+      values = if i <= @amount_mines then @bomb
+               else @empty end
+      @board.push({
+                    value: values,
+                    revealed?: false
+                  })
     end
     @board.shuffle!
     @board
