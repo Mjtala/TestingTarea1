@@ -19,7 +19,8 @@ class BoardView
       (1..board_model.width).each do |_j|
         if board_model.board[position][:revealed?]
           print("    #{board_model.board[position][:value]}")
-        else print '    ⬜'
+        else
+          print '    ⬜'
         end
         position += 1
       end
