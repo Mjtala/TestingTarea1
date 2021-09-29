@@ -16,4 +16,4 @@ jobs:
         with:
           ruby-version: 3.0
       - name: Run RuboCop
-        run: bundle exec rubocop --parallel
+        run: bundle exec rubocop
