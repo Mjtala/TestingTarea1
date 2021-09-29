@@ -3,25 +3,22 @@
 # Clase de la vista del tablero
 class BoardView
   def print_board(board_model)
-    print ' '
-    (1..board_model.width).each do |i|
-      print "    #{i}"
-    end
+    (1..board_model.width).each { |i| print "  #{i}  " }
     puts ''
+    print_board_matrix(board_model)
+    $stdout.flush
+  end
+
+  def print_board_matrix(board_model)
     position = 0
     (1..board_model.width).each do |i|
       print i
       (1..board_model.width).each do |_j|
-        if board_model.board[position][:revealed?]
-          print("    #{board_model.board[position][:value]}")
-        else
-          print '    ⬜'
-        end
+        print("  #{board_model.board[position][:value]}  ") if board_model.board[position][:revealed?]
         position += 1
       end
       puts ''
     end
-    $stdout.flush
   end
 
   def start_game

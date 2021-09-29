@@ -51,8 +51,7 @@ class Board
   ## todos parten con revealed falso ya que el jugado no debe ver qué es lo que hay
   ## usamos board shuffle para mezclar el tablero y que sean random las posiciones de las bombas
   def create_board
-    amount_total_squares = @width * @width
-    (1..amount_total_squares.to_i).each do |i|
+    (1..(@width * @width).to_i).each do |i|
       if i <= @amount_mines
         @board.push({
                       value: @bomb,
@@ -88,14 +87,9 @@ class Board
 
     @bordering.each_with_index.each do |values|
       neighbour = [row + values[0], col + values[1]]
-      if neighbour.include?(0) || neighbour.include?(@width + 1)
-        # estamos afuera del tablero por lo que no tenemos que calcular nada
-        next
-      end
+      next if neighbour.include?(0) || neighbour.include?(@width + 1)
 
-      # **  pasamos los valores de matríz a lista, neighbour[0] = x
       position_in_board = get_position_in_board(neighbour[0], neighbour[1])
-      # position_in_board = (neighbour[0]-1) * @width + (neighbour[1] - 1)
       total_bombs += 1 if @board[position_in_board][:value] == @bomb
     end
     total_bombs
@@ -124,9 +118,8 @@ class Board
       @bordering.each_with_index.each do |values|
         neighbour = [row + values[0], col + values[1]]
         p = get_position_in_board(neighbour[0], neighbour[1])
-        if neighbour[0] > @width || (neighbour[0]).negative? || neighbour[1] > @width || (neighbour[1]).negative? || @board[p][:value] == @bomb || @checked.include?([
-                                                                                                                                                                       neighbour[0], neighbour[1]
-                                                                                                                                                                     ]) || neighbour.include?(0) || neighbour.include?(@width + 1)
+        if !neighbour[0].between?(0, @width) || !neighbour[1].between?(0, @width) || @board[p][:value] == @bomb ||
+           @checked.include?([neighbour[0], neighbour[1]]) || neighbour.include?(0) || neighbour.include?(@width + 1)
           @checked.push([neighbour[0], neighbour[1]])
           # estamos afuera del tablero por lo que no tenemos que calcular nada
           next

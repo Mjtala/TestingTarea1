@@ -17,10 +17,11 @@ class BoardController
     x = key.split(',')[0].to_i
     y = key.split(',')[1].to_i
     response = [x, y]
-    if !x.between?(1, @model.width) && !y.between?(1, @model.width)
+    if !x.between?(1, @model.width) || !y.between?(1, @model.width)
       @view.send_error_message
       return request_input
     end
+    # print(x, y)
     response
   end
 
