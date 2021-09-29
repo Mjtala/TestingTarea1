@@ -4,7 +4,7 @@ require 'rubocop/rake_task'
 
 task default: %w[test]
 task :test do
-  # ruby 'test/clock_display_test.rb'
+  ruby 'test/mine_unit_test.rb'
   # Acá ponemos todos los tests que tengamos
 end
 

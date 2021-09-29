@@ -2,9 +2,9 @@ name: RuboCop
 
 on:
   push:
-    branches: [master]
+    branches: [develop, main]
   pull_request:
-    branches: [master]
+    branches: [main, develop]
 
 jobs:
   build:
@@ -22,3 +22,16 @@ jobs:
           bundler-cache: true
       - name: Run RuboCop
         run: bundle exec rubocop --parallel
+
+        Metrics/ClassLength:
+  Max: 196
+
+# Offense count: 228
+# Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
+Metrics/MethodLength:
+  Max: 34
+
+# Offense count: 5
+# Configuration parameters: CountComments, CountAsOne.
+Metrics/ModuleLength:
+  Max: 129
