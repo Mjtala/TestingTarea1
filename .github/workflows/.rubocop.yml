@@ -9,16 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ["2.6", "2.7", "3.0"]
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby-version}}
-          bundler-cache: true
+          ruby-version: 3.0
+        run: bundle install
       - name: Run RuboCop
-        run: bundle exec rubocop --parallel
+        run: bundle exec rubocop

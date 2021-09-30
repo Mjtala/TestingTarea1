@@ -5,34 +5,35 @@ require_relative '../lib/board_controller'
 require_relative '../lib/board_model'
 require 'test/unit'
 
+# Testeo de minesweeper
 class MineUnitTest < Test::Unit::TestCase
-  def test_define_bordering
-    @board = Board.new
-    output = @board.define_bordering
-    expected = [
-      [-1, -1], # upper-left
-      [-1, 0], # top
-      [-1, 1], # upper-right
-      [0, 1], # right
-      [1, 1], # lower-right
-      [1, 0], # bottom
-      [1, -1], # lower-left
-      [0, -1] # left
-    ]
-    assert_equal(expected, output)
-  end
-
-  def test_define_bordering_cross
-    @board = Board.new
-    output = @board.define_bordering_cross
-    expected = [
-      [-1, 0], # top
-      [0, 1], # right
-      [1, 0], # bottom
-      [0, -1] # left
-    ]
-    assert_equal(expected, output)
-  end
+    # def test_define_bordering
+    #   @board = Board.new
+    #   output = @board.define_bordering
+    #   expected = [
+    #     [-1, -1], # upper-left
+    #     [-1, 0], # top
+    #     [-1, 1], # upper-right
+    #     [0, 1], # right
+    #     [1, 1], # lower-right
+    #     [1, 0], # bottom
+    #     [1, -1], # lower-left
+    #     [0, -1] # left
+    #   ]
+    #   assert_equal(expected, output)
+    # end
+    
+    #   def test_define_bordering_cross
+    #     @board = Board.new
+    #     output = @board.define_bordering_cross
+    #     expected = [
+    #       [-1, 0], # top
+    #       [0, 1], # right
+    #       [1, 0], # bottom
+    #       [0, -1] # left
+    #     ]
+    #     assert_equal(expected, output)
+    #   end
 
     def test_reveal_boxes_move
         new_board = Board.new(3, 1)
@@ -49,7 +50,6 @@ class MineUnitTest < Test::Unit::TestCase
         assert_false(new_board.game_over())
     end
 
-    
     def test_game_over
         new_board = Board.new()
         board = new_board.board
