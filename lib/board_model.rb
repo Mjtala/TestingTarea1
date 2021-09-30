@@ -47,8 +47,8 @@ class Board
     ]
   end
 
-  ## creamos el board, primero ponemos todas las bombas y después agregamos el resto de los elementos
-  ## todos parten con revealed falso ya que el jugado no debe ver qué es lo que hay
+  ## creamos el board, primero ponemos todas las bombas y despues agregamos el resto de los elementos
+  ## todos parten con revealed falso ya que el jugado no debe ver que es lo que hay
   ## usamos board shuffle para mezclar el tablero y que sean random las posiciones de las bombas
   def create_board
     (1..(@width * @width).to_i).each do |i|
@@ -66,17 +66,17 @@ class Board
 
   # buscamos todas las bombas adyacentes a un cuadrado y las contamos para poder poner
   # el valor a los cuadrados. En el juego si apretas un cuadrado y sale 1 es porque tiene una
-  # bomba adyacente. Eso es lo que hacemos acá. Le agremos hece valor
+  # bomba adyacente. Eso es lo que hacemos aca. Le agremos hece valor
   def define_adyacent_bombs
     @board.length.times do |i|
       @board[i][:value] = get_total_adyacent_bombs(i) unless @board[i][:value] == @bomb
     end
   end
 
-  # acá calculamos las bombas adyacentes revisando los 8 cuadrados con los que colinda
+  # aca calculamos las bombas adyacentes revisando los 8 cuadrados con los que colinda
   # como trabajamos con una lista tenemos que estas constantemente cambiando los valores de
-  # lista a matriz y de matriz a lista. Esto es lo que hacemos en la línea **
-  # get coordinates hace lo contrario a la línea **, pasa de lista al valor coordenadas en la matriz
+  # lista a matriz y de matriz a lista. Esto es lo que hacemos en la linea **
+  # get coordinates hace lo contrario a la linea **, pasa de lista al valor coordenadas en la matriz
   def get_total_adyacent_bombs(position)
     row, col = get_coordinates(position)
     total_bombs = 0

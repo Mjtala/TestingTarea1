@@ -5,7 +5,7 @@ require 'rubocop/rake_task'
 task default: %w[test]
 task :test do
   ruby 'test/mine_unit_test.rb'
-  # Acá ponemos todos los tests que tengamos
+  # Aca ponemos todos los tests que tengamos
 end
 
 RuboCop::RakeTask.new(:lint) do |task|

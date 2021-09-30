@@ -32,7 +32,7 @@ class BoardView
     puts
     puts 'Bienvenido a Minesweeper!!'
     puts 'Para jugar debes ingresar los números de la posición fila,columna  que quieres descubrir.'
-    puts 'Aquí está el tablero:'
+    puts 'Aqui esta el tablero:'
   end
 
   def congratulate
