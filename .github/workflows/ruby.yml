@@ -10,7 +10,7 @@ name: Ruby
 on:
   push:
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, feat/unitTestModel]
 
 jobs:
   test:
