@@ -39,19 +39,19 @@ class MineUnitTest < Test::Unit::TestCase
     new_board = Board.new(3, 1)
     board = new_board.board
     (0..board.length - 1).each do |box_index|
-      if board[box_index][:value] != '💣'
-        if (board[box_index][:value]).zero?
-          row, col = new_board.get_coordinates(box_index)
-          new_board.reveal(row, col)
-          break
-          end
-      end
+      next unless board[box_index][:value] != '💣'
+
+      next unless (board[box_index][:value]).zero?
+
+      row, col = new_board.get_coordinates(box_index)
+      new_board.reveal(row, col)
+      break
     end
-    assert_false(new_board.game_over())
+    assert_false(new_board.game_over)
   end
 
   def test_game_over
-    new_board = Board.new()
+    new_board = Board.new
     board = new_board.board
     (0..board.length - 1).each do |box_index|
       if board[box_index][:value] == '💣'
@@ -62,11 +62,11 @@ class MineUnitTest < Test::Unit::TestCase
         next
       end
     end
-    assert_true(new_board.game_over())
+    assert_true(new_board.game_over)
   end
 
   def test_win
-    new_board = Board.new()
+    new_board = Board.new
     board = new_board.board
     (0..board.length - 1).each do |box_index|
       if board[box_index][:value] != '💣'
@@ -74,6 +74,6 @@ class MineUnitTest < Test::Unit::TestCase
         board[box_index][:revealed?] = true
       end
     end
-    assert_true(new_board.win())
+    assert_true(new_board.win)
   end
 end
