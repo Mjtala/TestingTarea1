@@ -2,9 +2,9 @@ name: RuboCop
 
 on:
   push:
-    branches: [develop, main]
+    branches:
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, feat/unitTestModel]
 
 jobs:
   build:
@@ -15,6 +15,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0
+      - name: Bundle Install
         run: bundle install
       - name: Run RuboCop
         run: bundle exec rubocop
