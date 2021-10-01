@@ -28,18 +28,6 @@ class BoardController
     return [x,y]
   end
   
-  # def request_input
-  #   @view.request_play
-  #   response = @view.request_input_coords
-  #   x = response[0]
-  #   y = response[1]
-  #   if !x.between?(1, @model.width) || !y.between?(1, @model.width)
-  #     @view.send_error_message
-  #     return request_input
-  #   end
-  #   response
-  # end
-
   def play
     @view.print_board(@model)
     if @model.game_over
@@ -47,7 +35,7 @@ class BoardController
     elsif @model.win
       @view.congratulate
     else
-      input = request_input_coords    
+      input = request_input  
       @model.reveal(input[0], input[1])
       play
     end
