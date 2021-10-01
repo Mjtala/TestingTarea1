@@ -55,6 +55,7 @@ class MineUnitTest < Test::Unit::TestCase
     x = -3
     y = -3  
     output = true
+    # allow(STDIN).to receive(:gets) {4 }
     if !x.between?(1, new_board.width) || !y.between?(1, new_board.width)
       output = false
     end
@@ -67,6 +68,7 @@ class MineUnitTest < Test::Unit::TestCase
     board_controller = BoardController.new(new_board, board_view)
     x = (new_board.width + 4).to_i
     y = (new_board.width + 4).to_i
+    # allow(STDIN).to receive(:gets) {4 }
     output = true
     if !x.between?(1, new_board.width) || !y.between?(1, new_board.width)
       output = false
