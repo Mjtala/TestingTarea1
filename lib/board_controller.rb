@@ -13,10 +13,9 @@ class BoardController
 
   def request_input
     @view.request_play
-    key = $stdin.gets
-    x = key.split(',')[0].to_i
-    y = key.split(',')[1].to_i
-    response = [x, y]
+    response = @view.request_input_coords
+    x = response[0]
+    y = response[1]
     if !x.between?(1, @model.width) || !y.between?(1, @model.width)
       @view.send_error_message
       return request_input

@@ -50,4 +50,11 @@ class BoardView
   def send_error_message
     puts 'Has introducido una jugada invalida'
   end
+
+  def request_input_coords
+    key = $stdin.gets
+    x = key.split(',')[0].to_i
+    y = key.split(',')[1].to_i
+    return [x,y]
+  end
 end
