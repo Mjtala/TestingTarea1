@@ -55,6 +55,6 @@ class BoardView
     key = $stdin.gets
     x = key.split(',')[0].to_i
     y = key.split(',')[1].to_i
-    return [x,y]
+    [x, y]
   end
 end
