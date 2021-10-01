@@ -9,9 +9,8 @@ name: Ruby
 
 on:
   push:
-    branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, feat/unitTestModel]
 
 jobs:
   test:
@@ -25,6 +24,7 @@ jobs:
         uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
         with:
           ruby-version: 3.0
+      - name: Bundle Install
         run: bundle install
       - name: Run tests
         run: rake test
