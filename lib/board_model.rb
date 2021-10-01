@@ -6,7 +6,7 @@ require 'matrix'
 class Board
   attr_accessor :board, :width, :game_over
 
-  def initialize(size = 5, amount_mines = 3)
+  def initialize(size = 3, amount_mines = 3)
     @board = []
     @checked = []
     @width = size.to_i
