@@ -35,7 +35,7 @@ class BoardController
     elsif @model.win
       @view.congratulate
     else
-      input = request_input  
+      input = request_input_coords
       @model.reveal(input[0], input[1])
       play
     end
