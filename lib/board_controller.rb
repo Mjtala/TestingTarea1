@@ -13,21 +13,19 @@ class BoardController
 
   def request_input_coords
     response = @view.request_input_coords
-    if request_input(response[0], response[1]) === 'Has introducido una jugada invalida'
+    if request_input(response[0], response[1]) == 'Has introducido una jugada invalida'
       request_input_coords
     else
-      return request_input(response[0], response[1])
+      request_input(response[0], response[1])
     end
   end
-  
-  def request_input(x, y)
+
+  def request_input(coord_x, coord_y)
     @view.request_play
-    if !x.between?(1, @model.width) || !y.between?(1, @model.width)
-      return @view.send_error_message
-    end
-    return [x,y]
+    return @view.send_error_message if !coord_x.between?(1, @model.width) || !coord_y.between?(1, @model.width)
+    [coord_x, coord_y]
   end
-  
+
   def play
     @view.print_board(@model)
     if @model.game_over
