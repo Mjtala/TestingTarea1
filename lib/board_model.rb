@@ -104,9 +104,8 @@ class Board
     i = get_position_in_board(row, col)
     puts("#{[row, col]} revealed value in method with index #{i} value #{@board[i][:value]} \n")
     @board[i][:revealed?] = true
-    if @board[i][:value] == @bomb
-      @game_over = true
-      nil
+    if @board[i][:value] == @bomb then @game_over = true
+                                       nil
     elsif (@board[i][:value]).zero?
       @checked.push([row, col])
       @bordering.each_with_index.each do |values|
