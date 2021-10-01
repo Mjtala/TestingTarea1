@@ -17,11 +17,7 @@ class BoardView
     (1..board_model.width).each do |i|
       print i
       (1..board_model.width).each do |_j|
-        if board_model.board[position][:revealed?]
-          print("    #{board_model.board[position][:value]}")
-        else
-          print '    ⬜'
-        end
+        board_model.board[position][:revealed?] ? print("    #{board_model.board[position][:value]}") : (print '    ⬜')
         position += 1
       end
       puts ''
@@ -32,7 +28,7 @@ class BoardView
     puts
     puts 'Bienvenido a Minesweeper!!'
     puts 'Para jugar debes ingresar los números de la posición fila,columna  que quieres descubrir.'
-    puts 'Aquí está el tablero:'
+    puts 'Aqui esta el tablero:'
   end
 
   def congratulate
