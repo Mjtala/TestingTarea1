@@ -26,7 +26,7 @@ class BoardView
 
   def start_game
     puts
-    puts 'Bienvenido a Minesweeper!!'
+    puts 'Bienvenido a Minesweeper!'
     puts 'Para jugar debes ingresar los números de la posición fila,columna  que quieres descubrir.'
     puts 'Aqui esta el tablero:'
   end
@@ -45,5 +45,12 @@ class BoardView
 
   def send_error_message
     puts 'Has introducido una jugada invalida'
+  end
+
+  def request_input_coords
+    key = $stdin.gets
+    x = key.split(',')[0].to_i
+    y = key.split(',')[1].to_i
+    [x, y]
   end
 end
