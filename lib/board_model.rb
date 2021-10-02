@@ -12,8 +12,8 @@ class Board
     @width = size.to_i
     @amount_mines = amount_mines.to_i
     @game_over = false
-    @bordering = define_bordering
-    @bordering_cross = define_bordering_cross
+    @bordering = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]]
+    @bordering_cross = [[-1, 0], [0, 1], [1, 0], [0, -1]]
     initialize_objects
   end
 
@@ -23,14 +23,6 @@ class Board
     @exploded = '💥'
     create_board
     define_adyacent_bombs
-  end
-
-  def define_bordering
-    [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]]
-  end
-
-  def define_bordering_cross
-    [[-1, 0], [0, 1], [1, 0], [0, -1]]
   end
 
   ## creamos el board, primero ponemos todas las bombas y despues agregamos el resto de los elementos
@@ -103,14 +95,17 @@ class Board
     [neighbour, p]
   end
 
+  def check(neighbour)
+    @checked.push([neighbour[0], neighbour[1]])
+  end
+
   def check_boundaries(row, col, values)
     neighbour, p = assign(row, col, values)
-    if check_contditions(row, col, values) then @checked.push([neighbour[0], neighbour[1]])
-    elsif @board[p][:value] != 0
-      @board[p][:revealed?] = true
-      @checked.push([neighbour[0], neighbour[1]])
+    if check_contditions(row, col, values) then check(neighbour)
+    elsif @board[p][:value] != 0 then @board[p][:revealed?] = true
+                                      check(neighbour)
     else
-      @checked.push([neighbour[0], neighbour[1]])
+      check(neighbour)
       reveal(neighbour[0], neighbour[1])
     end
   end
@@ -120,11 +115,10 @@ class Board
     @board[i][:revealed?] = true
     if @board[i][:value] == @bomb then @game_over = true
                                        nil
-    elsif (@board[i][:value]).zero?
-      @checked.push([row, col])
-      @bordering.each_with_index.each do |values|
-        check_boundaries(row, col, values)
-      end
+    elsif (@board[i][:value]).zero? then @checked.push([row, col])
+                                         @bordering.each_with_index.each do |values|
+                                           check_boundaries(row, col, values)
+                                         end
     end
   end
 
