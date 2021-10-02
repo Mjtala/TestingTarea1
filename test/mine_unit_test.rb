@@ -25,13 +25,11 @@ class MineUnitTest < Test::Unit::TestCase
     new_board = Board.new
     board = new_board.board
     (0..board.length - 1).each do |box_index|
-      if board[box_index][:value] == '💣'
-        row, col = new_board.get_coordinates(box_index)
-        new_board.reveal(row, col)
-        break
-      else
-        next
-      end
+      next unless board[box_index][:value] == '💣'
+
+      row, col = new_board.get_coordinates(box_index)
+      new_board.reveal(row, col)
+      break
     end
     assert_true(new_board.game_over)
   end
