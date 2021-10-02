@@ -26,25 +26,11 @@ class Board
   end
 
   def define_bordering
-    [
-      [-1, -1], # upper-left
-      [-1, 0], # top
-      [-1, 1], # upper-right
-      [0, 1], # right
-      [1, 1], # lower-right
-      [1, 0], # bottom
-      [1, -1], # lower-left
-      [0, -1] # left
-    ]
+    [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]]
   end
 
   def define_bordering_cross
-    [
-      [-1, 0], # top
-      [0, 1], # right
-      [1, 0], # bottom
-      [0, -1] # left
-    ]
+    [[-1, 0], [0, 1], [1, 0], [0, -1]]
   end
 
   ## creamos el board, primero ponemos todas las bombas y despues agregamos el resto de los elementos
@@ -75,16 +61,19 @@ class Board
   # como trabajamos con una lista tenemos que estas constantemente cambiando los valores de
   # lista a matriz y de matriz a lista. Esto es lo que hacemos en la linea **
   # get coordinates hace lo contrario a la linea **, pasa de lista al valor coordenadas en la matriz
+  def if_bomb(row, col, values)
+    print(row, col, values)
+    neighbour = [row + values[0], col + values[1]]
+    position_in_board = get_position_in_board(neighbour[0], neighbour[1])
+    return unless @board[position_in_board]
+    return true if @board[position_in_board][:value] == @bomb
+  end
+
   def get_total_adyacent_bombs(position)
     row, col = get_coordinates(position)
     total_bombs = 0
-
     @bordering.each_with_index.each do |values|
-      neighbour = [row + values[0], col + values[1]]
-      next if neighbour.include?(0) || neighbour.include?(@width + 1)
-
-      position_in_board = get_position_in_board(neighbour[0], neighbour[1])
-      total_bombs += 1 if @board[position_in_board][:value] == @bomb
+      total_bombs += 1 if if_bomb(row, col, values)
     end
     total_bombs
   end
@@ -100,30 +89,41 @@ class Board
     (row - 1) * @width + (col - 1)
   end
 
+  def check_contditions(row, col, values)
+    neighbour, p = assign(row, col, values)
+    if !neighbour[0].between?(0, @width) || !neighbour[1].between?(0, @width) || @board[p][:value] == @bomb ||
+       @checked.include?([neighbour[0], neighbour[1]]) || neighbour.include?(0) || neighbour.include?(@width + 1)
+      true
+    end
+  end
+
+  def assign(row, col, values)
+    neighbour = [row + values[0], col + values[1]]
+    p = get_position_in_board(neighbour[0], neighbour[1])
+    [neighbour, p]
+  end
+
+  def check_boundaries(row, col, values)
+    neighbour, p = assign(row, col, values)
+    if check_contditions(row, col, values) then @checked.push([neighbour[0], neighbour[1]])
+    elsif @board[p][:value] != 0
+      @board[p][:revealed?] = true
+      @checked.push([neighbour[0], neighbour[1]])
+    else
+      @checked.push([neighbour[0], neighbour[1]])
+      reveal(neighbour[0], neighbour[1])
+    end
+  end
+
   def reveal(row, col)
     i = get_position_in_board(row, col)
-    puts("#{[row, col]} revealed value in method with index #{i} value #{@board[i][:value]} \n")
     @board[i][:revealed?] = true
     if @board[i][:value] == @bomb then @game_over = true
                                        nil
     elsif (@board[i][:value]).zero?
       @checked.push([row, col])
       @bordering.each_with_index.each do |values|
-        neighbour = [row + values[0], col + values[1]]
-        p = get_position_in_board(neighbour[0], neighbour[1])
-        if !neighbour[0].between?(0, @width) || !neighbour[1].between?(0, @width) || @board[p][:value] == @bomb ||
-           @checked.include?([neighbour[0], neighbour[1]]) || neighbour.include?(0) || neighbour.include?(@width + 1)
-          @checked.push([neighbour[0], neighbour[1]])
-          # estamos afuera del tablero por lo que no tenemos que calcular nada
-          next
-        elsif @board[p][:value] != 0
-          @board[p][:revealed?] = true
-          puts("#{neighbour} revealed value != 0 with index #{p} value #{@board[p][:value]} \n")
-          @checked.push([neighbour[0], neighbour[1]])
-        else
-          @checked.push([neighbour[0], neighbour[1]])
-          reveal(neighbour[0], neighbour[1])
-        end
+        check_boundaries(row, col, values)
       end
     end
   end
