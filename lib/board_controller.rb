@@ -23,7 +23,6 @@ class BoardController
   def request_input(coord_x, coord_y)
     @view.request_play
     return @view.send_error_message if !coord_x.between?(1, @model.width) || !coord_y.between?(1, @model.width)
-
     [coord_x, coord_y]
   end
 
