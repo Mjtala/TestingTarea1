@@ -73,7 +73,6 @@ class MineUnitTest < Test::Unit::TestCase
     expected = [x, y]
     input = board_controller.request_input([x, y])
     assert_equal(expected, input)
-    # assert_equal(y, value_y)
   end
 
   def test_print_board
