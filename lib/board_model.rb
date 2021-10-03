@@ -54,7 +54,6 @@ class Board
   # lista a matriz y de matriz a lista. Esto es lo que hacemos en la linea **
   # get coordinates hace lo contrario a la linea **, pasa de lista al valor coordenadas en la matriz
   def if_bomb(row, col, values)
-    print(row, col, values)
     neighbour = [row + values[0], col + values[1]]
     position_in_board = get_position_in_board(neighbour[0], neighbour[1])
     return unless @board[position_in_board]
@@ -109,6 +108,15 @@ class Board
       reveal(neighbour[0], neighbour[1])
     end
   end
+
+  #  def check_already_revealed(ind)
+  #    if @board[ind][:revealed?]
+  #      1
+  #    else
+  #      @board[ind][:revealed?] = true
+  #      0
+  #    end
+  #  end
 
   def reveal(row, col)
     i = get_position_in_board(row, col)
