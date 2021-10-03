@@ -52,7 +52,7 @@ class MineUnitTest < Test::Unit::TestCase
     board_controller = BoardController.new(new_board, board_view)
     x = -3
     y = -3
-    assert_equal(board_view.send_error_message, board_controller.request_input([x, y]))
+    assert_equal(board_view.send_error_message, board_controller.request_input(x, y))
   end
 
   def test_request_out_of_range_input
@@ -61,7 +61,7 @@ class MineUnitTest < Test::Unit::TestCase
     board_controller = BoardController.new(new_board, board_view)
     x = (new_board.width + 4).to_i
     y = (new_board.width + 4).to_i
-    assert_equal(board_view.send_error_message, board_controller.request_input([x, y]))
+    assert_equal(board_view.send_error_message, board_controller.request_input(x, y))
   end
 
   def test_request_correct_input
