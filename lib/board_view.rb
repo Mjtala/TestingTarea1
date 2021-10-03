@@ -45,6 +45,7 @@ class BoardView
 
   def send_error_message
     puts 'Has introducido una jugada invalida'
+    'Has introducido una jugada invalida'
   end
 
   def request_input_coords

@@ -110,6 +110,15 @@ class Board
     end
   end
 
+  #  def check_already_revealed(ind)
+  #    if @board[ind][:revealed?]
+  #      1
+  #    else
+  #      @board[ind][:revealed?] = true
+  #      0
+  #    end
+  #  end
+
   def reveal(row, col)
     i = get_position_in_board(row, col)
     @board[i][:revealed?] = true
