@@ -71,7 +71,7 @@ class MineUnitTest < Test::Unit::TestCase
     x = 4
     y = 2
     expected = [x, y]
-    input = board_controller.request_input(x,y)
+    input = board_controller.request_input(x, y)
     assert_equal(expected, input)
     # assert_equal(y, value_y)
   end
