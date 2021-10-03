@@ -70,8 +70,8 @@ class MineUnitTest < Test::Unit::TestCase
     board_controller = BoardController.new(new_board, board_view)
     x = 4
     y = 2
-    expected = [x, y]
-    input = board_controller.request_input([x, y])
+    input = [x, y]
+    expected = board_controller.request_input([x, y])
     assert_equal(expected, input)
   end
 
