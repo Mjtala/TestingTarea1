@@ -11,22 +11,17 @@ class BoardController
     @view.print_board(@model)
   end
 
-  def request_input_coords
+  def request_input
     @view.request_play
-    response = @view.request_input_coords
-    if request_input(response) == 'Has introducido una jugada invalida'
-      request_input_coords
-    else
-      request_input(response)
-    end
-  end
-
-  def request_input(coords)
-    if !coords[0].between?(1, @model.width) || !coords[1].between?(1, @model.width)
+    key = $stdin.gets
+    x = key.split(',')[0].to_i
+    y = key.split(',')[1].to_i
+    response = [x, y]
+    if !x.between?(1, @model.width) || !y.between?(1, @model.width)
       @view.send_error_message
-    else
-      [coords[0], coords[1]]
+      return request_input
     end
+    response
   end
 
   def play
@@ -36,7 +31,7 @@ class BoardController
     elsif @model.win
       @view.congratulate
     else
-      input = request_input_coords
+      input = request_input
       @model.reveal(input[0], input[1])
       play
     end
