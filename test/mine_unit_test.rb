@@ -64,17 +64,17 @@ class MineUnitTest < Test::Unit::TestCase
     assert_equal(board_view.send_error_message, board_controller.request_input(x, y))
   end
 
-  #   def test_request_correct_input
-  #     new_board = Board.new
-  #     board_view = BoardView.new
-  #     board_controller = BoardController.new(new_board, board_view)
-  #     x = 4
-  #     y = 2
-  #     expected = [x,y]
-  #     input = board_controller.request_input(x,y)
-  #     assert_equal(expected, input)
-  #     # assert_equal(y, value_y)
-  #   end
+  def test_request_correct_input
+    new_board = Board.new
+    board_view = BoardView.new
+    board_controller = BoardController.new(new_board, board_view)
+    x = 4
+    y = 2
+    expected = [x, y]
+    input = board_controller.request_input(x,y)
+    assert_equal(expected, input)
+    # assert_equal(y, value_y)
+  end
 
   def test_print_board
     # No se hace porque es de la view
